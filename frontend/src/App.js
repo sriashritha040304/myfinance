@@ -1,14 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FinanceProvider, useFinance } from './context/FinanceContext';
+import BottomNav from './components/BottomNav';
+import Home from './pages/Home';
+import Groceries from './pages/Groceries';
+import Bills from './pages/Bills';
+import Savings from './pages/Savings';
+import Spending from './pages/Spending';
+import Debt from './pages/Debt';
 
-function App() {
+function AppContent() {
+  const [active, setActive] = useState('home');
+  const { darkMode } = useFinance();
+
+  const screens = {
+    home:      <Home />,
+    groceries: <Groceries />,
+    bills:     <Bills />,
+    savings:   <Savings />,
+    spending:  <Spending />,
+    debt:      <Debt />,
+  };
+
   return (
-    <div className="min-h-screen bg-[#f5f0ff] font-nunito">
-      <h1 className="text-3xl font-bold text-center pt-10 text-purple-600">
-        💜 MyFinance
-      </h1>
-      <p className="text-center text-gray-400 mt-2">Loading your app...</p>
+    <div className={darkMode ? 'dark' : ''}>
+      <div className="max-w-md mx-auto relative">
+        {screens[active]}
+        <BottomNav active={active} setActive={setActive} />
+      </div>
     </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <FinanceProvider>
+      <AppContent />
+    </FinanceProvider>
+  );
+}

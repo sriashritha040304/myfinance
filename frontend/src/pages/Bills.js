@@ -1,0 +1,1 @@
+import React from 'react'; export default function Bills() { return <div className='min-h-screen p-5 pt-12'><h1 className='text-2xl font-bold text-purple-600'>💸 Bills</h1><p className='text-gray-400 mt-2'>Coming soon...</p></div>; }
